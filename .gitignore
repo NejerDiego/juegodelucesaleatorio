@@ -1,0 +1,132 @@
+/////////////////////////////////// DECLARACIÓN DE VARIABLES /////////////////////////////////////////////
+int led_1 = 8; int led_2 = 9; int led_3 = 10; int led_4 = 11; int led_5 = 12; int led_6 = 13; int sw_1 = 7; int sw_2 = 6;
+int leds[6] = {led_1, led_2, led_3, led_4, led_5, led_6};
+int led[3]={led_2,led_4,led_6};
+int contador;
+int cont = 0;
+int conta1=0;
+int conta2=0;
+int i = 0;
+int dato;
+
+void setup() {
+///////////////////////////////// DECLARAR SI SON PUERTOS DE ENTRADA O SALIDA ///////////////////////////
+  // put your setup code here, to run once:
+  pinMode (led_1, OUTPUT);
+  pinMode (led_2, OUTPUT);
+  pinMode (led_3, OUTPUT);
+  pinMode (led_4, OUTPUT);
+  pinMode (led_5, OUTPUT);
+  pinMode (led_6, OUTPUT);
+  pinMode (sw_1, INPUT);
+  pinMode(sw_2, INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  p();
+ 
+}
+
+void p () {
+/////////////////// LEDS PARES REPETICIÓN DE 5 VECES /////////////////////////////////////
+  if (digitalRead(sw_1) == HIGH && digitalRead(sw_2) == LOW) {              
+    for (; cont < 5; cont++) {
+      contador = 0;
+      for (; contador < 6; contador++) {
+        contador = contador + 1;
+        digitalWrite(leds[contador], HIGH);
+        delay(200);
+        digitalWrite(leds[contador], LOW);
+        delay(200);
+      }
+      contador = 4;
+      for (; contador >= 3; contador--) {
+        contador = contador - 1;
+        digitalWrite(leds[contador], HIGH);
+        delay(200);
+        digitalWrite(leds[contador], LOW);
+        delay(200);
+      }
+    }
+  }
+  else
+    cont = 0;
+/////////////////////////////// LEDS PARES RANDOM ---- 5 VECES //////////////////////////    
+    if (digitalRead(sw_1) == LOW && digitalRead(sw_2) == HIGH) {         
+    for (; i < 5; i++)
+    {
+      dato= random (3);
+        digitalWrite(led[dato], HIGH);
+        delay(400);
+        digitalWrite(led[dato], LOW);
+        delay(400);
+  }
+    }
+  else 
+  i=0;
+/////////////////////////////  LEDS IMPARES - 5 VECES ////////////////////////////////////
+  if (digitalRead(sw_1)== HIGH && digitalRead(sw_2) == HIGH){          
+
+        for (; conta1 < 5; conta1++)
+    {
+      contador = 0;
+      
+      for (; contador < 6; contador=contador+2) {
+        digitalWrite(leds[contador], HIGH);
+        delay(200);
+        digitalWrite(leds[contador], LOW);
+        delay (200);
+      }
+      contador=2;
+      for (; contador >= 2; contador=contador-2) {
+        digitalWrite(leds[contador], HIGH);
+        delay(200);
+        digitalWrite(leds[contador], LOW);
+        delay(200);
+      }
+    
+  }
+ 
+}
+ else 
+  conta1=0;
+//////////////////////////////// CICLO DE LUCES RANDOM [3,8] Y PARES DE LUCES [RANDOM] /////////////////////////////
+  if(digitalRead (sw_1)==LOW && digitalRead(sw_2)==LOW){                
+    delay(200);                                           // RETRASO DEBIDO A QUE EL COMANDO RANDOM ENVIA VALORES CONSTANTEMENTE CON EL DELAY SE PUEDE NOTAR 
+                                                          // LOS CAMBIOS QUE VA TOMANDO 
+    dato= random(3,8);                                    // COMANDO PARA SELECCIÓN ALEATORIA 
+    for(conta2=0;conta2<dato; conta2++){                                
+      contador=random(4);
+      if(contador== 1){
+        digitalWrite(led_1, HIGH);
+        digitalWrite(led_6, HIGH);
+        delay (200);
+        digitalWrite(led_1, LOW);
+        digitalWrite(led_6, LOW);
+        delay (200);
+        }
+      if(contador==2){
+        digitalWrite(led_2, HIGH);
+        digitalWrite(led_5, HIGH);
+        delay (200);
+        digitalWrite(led_2, LOW);
+        digitalWrite(led_5, LOW);
+        delay (200);
+        }
+      if(contador==3){
+        digitalWrite(led_3, HIGH);
+        digitalWrite(led_4, HIGH);
+        delay (200);
+        digitalWrite(led_3, LOW);
+        digitalWrite(led_4, LOW);
+        delay (200);
+        } 
+      }
+     delay(3000);                                   // RETRASO PARA NOTAR LA DIFERENCIA EL CAMBIO DE REPETICIÓNES ALEATORIAS
+    }
+    else 
+      conta2=0;
+}
+
+
